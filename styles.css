@@ -1,0 +1,592 @@
+:root {
+    --bg: #0f1724;
+    --card: #0b1220;
+    --accent: #1db954;
+    /* green music accent */
+    --muted: #9aa7b2;
+    --text: #e6eef3;
+    --glass: rgba(255, 255, 255, 0.03);
+    --radius: 10px;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+* {
+    box-sizing: border-box
+}
+
+html,
+body,
+#map {
+    height: 100%
+}
+
+body {
+    margin: 0;
+    background: linear-gradient(180deg, #071021 0%, #0a192a 100%);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.8rem 1rem;
+    background: transparent;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.1rem
+}
+
+.controls {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center
+}
+
+.controls input[type="search"] {
+    padding: 0.45rem 0.6rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    background: transparent;
+    color: var(--text);
+    min-width: 220px;
+}
+
+.controls select {
+    padding: 0.45rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    background: transparent;
+    color: var(--text);
+}
+
+/* Main layout */
+main {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 12px;
+    padding: 0.6rem;
+    flex: 1;
+}
+
+/* Map area */
+#map-section {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--glass);
+    padding: 6px
+}
+
+#map {
+    height: calc(100vh - 176px);
+    border-radius: 6px;
+}
+
+/* Tooltip */
+#tooltip {
+    position: absolute;
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 6px 10px;
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 0.9rem;
+}
+
+/* Sidebar */
+aside {
+    display: flex;
+    flex-direction: column;
+    gap: 12px
+}
+
+.card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.small {
+    font-size: 0.9rem
+}
+
+#countryInfo h2 {
+    margin: 0 0 6px 0
+}
+
+.track-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 260px;
+    overflow: auto
+}
+
+.track-list li {
+    padding: 8px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    cursor: pointer
+}
+
+.track-list li:hover {
+    background: rgba(255, 255, 255, 0.02)
+}
+
+.track-meta {
+    font-size: 0.85rem;
+    color: var(--muted)
+}
+
+/* Player */
+.player-controls {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px
+}
+
+.player-controls button {
+    padding: 8px;
+    border-radius: 8px;
+    border: 0;
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text);
+    cursor: pointer
+}
+
+#seekBarWrap {
+    margin-top: 8px
+}
+
+#seek {
+    width: 100%
+}
+
+.time {
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-align: right;
+    margin-top: 4px
+}
+
+/* Footer */
+footer {
+    padding: 10px;
+    text-align: center;
+    color: var(--muted)
+}
+
+/* Responsive */
+@media (max-width:980px) {
+    main {
+        grid-template-columns: 1fr 320px
+    }
+
+    #map {
+        height: 520px
+    }
+}
+
+@media (max-width:700px) {
+    main {
+        grid-template-columns: 1fr;
+        padding: 0.6rem
+    }
+
+    #map {
+        height: 420px
+    }
+}
+
+.home-container {
+    max-width: 600px;
+    padding: 2rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background: #22c55e;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #16a34a;
+}
+
+/* Floating music control */
+#musicControl {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #22c55e;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    transition: background 0.3s;
+}
+
+#musicControl:hover {
+    background: #16a34a;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0f172a, #1e3a8a, #3b82f6);
+    background-size: 400% 400%;
+    animation: gradientMove 10s ease infinite;
+    color: #fff;
+    text-align: center;
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.home-container {
+    padding: 2rem;
+    max-width: 600px;
+    z-index: 2;
+}
+
+h1 {
+    font-size: 2.8rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+h1 span {
+    color: #22c55e;
+}
+
+p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.9rem 1.8rem;
+    background: #22c55e;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.btn:hover {
+    background: #16a34a;
+    transform: scale(1.05);
+}
+
+/* Social Media Icons */
+footer {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+footer a {
+    color: #fff;
+    font-size: 1.8rem;
+    transition: color 0.3s, transform 0.3s;
+}
+
+footer a:hover {
+    color: #22c55e;
+    transform: scale(1.2);
+}
+
+/* Floating music control */
+#musicControl {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #22c55e;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    transition: background 0.3s;
+}
+
+#musicControl:hover {
+    background: #16a34a;
+}
+
+/* Floating background animation (music theme) */
+.notes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.note {
+    position: absolute;
+    bottom: -50px;
+    font-size: 1.5rem;
+    animation: floatUp 8s linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 50px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: #22c55e;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #22c55e;
+}
+
+.social-icons a {
+    color: #fff;
+    font-size: 1.3rem;
+    margin-left: 15px;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: #22c55e;
+}
+
+main {
+    text-align: center;
+    margin-top: 140px;
+}
+
+.hero {
+    padding: 80px 20px;
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 30px;
+    color: #d1d5db;
+}
+
+.explore-btn {
+    padding: 12px 25px;
+    background: #22c55e;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.explore-btn:hover {
+    background: #16a34a;
+}
+
+footer {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 15px 0;
+    text-align: center;
+    color: #94a3b8;
+    margin-top: 50px;
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+}
+
+nav {
+    margin-top: 10px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 50px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+.logo h1 {
+    color: #22c55e;
+    font-size: 1.4rem;
+}
+
+.search-bar {
+    margin: 30px auto;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.search-bar input,
+.search-bar select {
+    padding: 10px;
+    border-radius: 25px;
+    border: none;
+    width: 220px;
+    outline: none;
+    font-size: 1rem;
+}
+
+.map-container {
+    margin: 40px auto;
+}
+
+iframe {
+    width: 90%;
+    height: 450px;
+    border: none;
+    border-radius: 12px;
+}
+
+.music-player {
+    margin-top: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 12px;
+    display: inline-block;
+}
+
+audio {
+    width: 300px;
+    outline: none;
+    margin-top: 10px;
+}
+
+footer {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 15px 0;
+    color: #94a3b8;
+    margin-top: 50px;
+}

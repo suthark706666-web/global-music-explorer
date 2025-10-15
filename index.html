@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Global Music Explorer</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="" crossorigin="" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="home-container">
+        <h1>Welcome to <span>Global Music Explorer</span></h1>
+        <p>Discover indie beats, explore countries, and feel the rhythm of the world.</p>
+        <a href="explorer.html" class="btn">🎧 Explore Now</a>
+    </div>
+
+    <!-- Animated Music Notes -->
+    <div class="notes" id="notes"></div>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="music/bg-music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <button id="musicControl">🔇</button>
+
+    <!-- Social Media Links -->
+    <footer>
+        <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+    </footer>
+
+    <script>
+        // Background music control
+        const bgMusic = document.getElementById("bgMusic");
+        const musicControl = document.getElementById("musicControl");
+        let isPlaying = false;
+
+        musicControl.addEventListener("click", () => {
+            if (!isPlaying) {
+                bgMusic.play();
+                musicControl.textContent = "🔊";
+                isPlaying = true;
+            } else {
+                bgMusic.pause();
+                musicControl.textContent = "🔇";
+                isPlaying = false;
+            }
+        });
+
+        // Floating musical notes
+        const notesContainer = document.getElementById("notes");
+        const noteSymbols = ["🎵", "🎶", "🎼", "🎧", "🎤"];
+        function createNote() {
+            const note = document.createElement("div");
+            note.classList.add("note");
+            note.textContent = noteSymbols[Math.floor(Math.random() * noteSymbols.length)];
+            note.style.left = Math.random() * 100 + "vw";
+            note.style.fontSize = (1 + Math.random() * 2) + "rem";
+            note.style.animationDuration = (6 + Math.random() * 4) + "s";
+            notesContainer.appendChild(note);
+            setTimeout(() => note.remove(), 8000);
+        }
+        setInterval(createNote, 800);
+
+    </script>
+    <style></style>
+    <link rel="icon" type="image/x-icon" href="https://upload.wikimedia.org/wikipedia/commons/7/70/Music_icon.png">
+
+    <header>
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/70/Music_icon.png" alt="Logo">
+            <h1>Global Music Explorer</h1>
+        </div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="explorer.html">Explore</a>
+            <a href="artists.html">Artists</a>
+            <a href="genres.html">Genres</a>
+            <a href="login.html">Login</a>
+        </nav>
+        <div class="social-icons">
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+        </div>
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Spotify_logo_with_text.svg" alt="Logo">
+        </div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Explore</a>
+            <a href="#">Artists</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h2>Discover Indie Music from Every Corner of the World</h2>
+            <p>Click on a country to explore its unique indie sounds. Enjoy authentic tunes, discover new artists, and
+                experience music without borders.</p>
+            <button class="explore-btn" onclick="window.location.href='explorer.html'">Start Exploring</button>
+        </section>
+    </main>
+
+
+    </style>
+    </script>
+    <header>
+        <h1>Global Music Explorer</h1>
+        <div class="controls">
+            <input id="search" type="search" placeholder="Search artists, tracks, genres..." />
+            <select id="regionFilter">
+                <option value="">All regions</option>
+                <option value="Europe">Europe</option>
+                <option value="Asia">Asia</option>
+                <option value="Africa">Africa</option>
+                <option value="Americas">Americas</option>
+                <option value="Oceania">Oceania</option>
+            </select>
+        </div>
+    </header>
+
+    <main>
+        <section id="map-section">
+            <div id="map"></div>
+            <div id="tooltip" class="hidden"></div>
+        </section>
+
+        <aside id="sidebar">
+            <div id="countryInfo" class="card">
+                <h2 id="countryName">Click a country</h2>
+                <p id="countryMeta">Explore indie music from around the world.</p>
+            </div>
+
+            <div id="playlistCard" class="card">
+                <h3>Tracks</h3>
+                <ul id="trackList" class="track-list"></ul>
+            </div>
+
+            <div id="player" class="card">
+                <h3>Player</h3>
+                <div id="playerTrack">No track selected</div>
+                <audio id="audio" preload="metadata"></audio>
+                <div class="player-controls">
+                    <button id="prevBtn">⏮</button>
+                    <button id="playPauseBtn">▶️</button>
+                    <button id="stopBtn">⏹</button>
+                    <button id="nextBtn">⏭</button>
+                </div>
+                <div id="seekBarWrap">
+                    <input id="seek" type="range" min="0" max="100" value="0">
+                    <div class="time">
+                        <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="about" class="card small">
+                <strong>Future features</strong>
+                <ul>
+                    <li>Playlists & recommendations</li>
+                    <li>Social sharing</li>
+                    <li>Offline caching / PWA</li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="" crossorigin=""></script>
+    <script src="script.js"></script>
+    <footer>
+        <small>Built for indie discovery • Lightweight & scalable</small>
+    </footer>
+    <footer>
+        © 2025 Global Music Explorer | Designed by Kailash Suthar
+    </footer>
+</body>
+
+</html>

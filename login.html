@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Global Music Explorer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            color: #fff;
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2rem 2.5rem;
+            border-radius: 14px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+        }
+
+        .login-box h2 {
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 0.8rem;
+            background: #22c55e;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .login-box button:hover {
+            background: #16a34a;
+        }
+
+        .social-login {
+            margin-top: 1.5rem;
+        }
+
+        .social-login a {
+            color: #fff;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .social-login a:hover {
+            color: #22c55e;
+        }
+
+        .error {
+            color: #f87171;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .signup-link {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .signup-link a {
+            color: #22c55e;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-box">
+        <h2>Welcome Back</h2>
+        <div id="error" class="error"></div>
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button id="loginBtn">Login</button>
+
+        <div class="signup-link">
+            Don’t have an account? <a href="#">Sign Up</a>
+        </div>
+
+        <div class="social-login">
+            <a href="https://instagram.com" target="mr-apple706"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/7066667262" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+        </div>
+    </div>
+
+    <script>
+        const loginBtn = document.getElementById("loginBtn");
+        const errorEl = document.getElementById("error");
+
+        loginBtn.addEventListener("click", () => {
+            const user = document.getElementById("username").value.trim();
+            const pass = document.getElementById("password").value.trim();
+
+            if (user === "" || pass === "") {
+                errorEl.textContent = "⚠ Please enter both username and password.";
+                return;
+            }
+
+            // Simple login simulation
+            localStorage.setItem("loggedInUser", user);
+            window.location.href = "index.html"; // Go to home page after login
+        });
+    </script>
+</body>
+
+</html>

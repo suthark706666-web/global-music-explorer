@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Music - Global Music Explorer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(120deg, #0f172a, #1e3a8a);
+            color: #fff;
+            text-align: center;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 50px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+        }
+
+        .logo h1 {
+            color: #22c55e;
+            font-size: 1.4rem;
+        }
+
+        .search-bar {
+            margin: 30px auto;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .search-bar input,
+        .search-bar select {
+            padding: 10px;
+            border-radius: 25px;
+            border: none;
+            width: 220px;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .map-container {
+            margin: 40px auto;
+        }
+
+        iframe {
+            width: 90%;
+            height: 450px;
+            border: none;
+            border-radius: 12px;
+        }
+
+        .music-player {
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        audio {
+            width: 300px;
+            outline: none;
+            margin-top: 10px;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px 0;
+            color: #94a3b8;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="OIP (2).jpeg" alt="Logo">
+            <h1>Global Music Explorer</h1>
+        </div>
+    </header>
+
+    <h2>Explore Indie Music Around the World 🌍</h2>
+    <p>Click on any country on the map to discover local indie artists and sounds.</p>
+
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search by Artist...">
+        <select id="genreSelect">
+            <option value="">Filter by Genre</option>
+            <option value="indie">Indie</option>
+            <option value="pop">Pop</option>
+            <option value="rock">Rock</option>
+            <option value="folk">Folk</option>
+            <option value="electronic">Electronic</option>
+        </select>
+        <div class="map-container">
+            <h3>Choose a Country</h3>
+            <div class="countries">
+                <button class="country-btn" onclick="playMusic('India')">India 🇮🇳</button>
+                <button class="country-btn" onclick="playMusic('USA')">USA 🇺🇸</button>
+                <button class="country-btn" onclick="playMusic('Japan')">Japan 🇯🇵</button>
+                <button class="country-btn" onclick="playMusic('Brazil')">Brazil 🇧🇷</button>
+                <button class="country-btn" onclick="playMusic('UK')">UK 🇬🇧</button>
+            </div>
+        </div>
+
+        <div class="music-player">
+            <h3 id="India">Now Playing: Indian Indie Vibes 🇮🇳</h3>
+            <audio id="audioPlayer" controls>
+                <source id="audioSource" src="" type="arjit shingh">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+
+        <!-- ===== Artists Section ===== -->
+        <section class="artists">
+            <h2>Featured Indie Artists 🎤</h2>
+            <div class="artist-grid">
+                <div class="artist-card">
+                    <img src="OIP (4) - Copy.jpeg" alt="Prateek Kuhad">
+                    <h3>Prateek Kuhad</h3>
+                    <p>Genre: Indie / Folk (India)</p>
+                    <button onclick="playMusic('India')">Play Song</button>
+                </div>
+                <div class="artist-card">
+                    <img src="OIP (5).jpeg" alt="Billie Eilish">
+                    <h3>Billie Eilish</h3>
+                    <p>Genre: Indie Pop (USA)</p>
+                    <button onclick="playMusic('USA')">Play Song</button>
+                </div>
+                <div class="artist-card">
+                    <img src="OIP (6).jpeg" alt="Kenshi Yonezu">
+                    <h3>Kenshi Yonezu</h3>
+                    <p>Genre: Indie Rock (Japan)</p>
+                    <button onclick="playMusic('Japan')">Play Song</button>
+                </div>
+                <div class="artist-card">
+                    <img src="OIP (7).jpeg" alt="Anavitória">
+                    <h3>Anavitória</h3>
+                    <p>Genre: Acoustic Pop (Brazil)</p>
+                    <button onclick="playMusic('Brazil')">Play Song</button>
+                </div>
+                <div class="artist-card">
+                    <img src="OIP (8).jpeg" alt="Arctic Monkeys">
+                    <h3>Arctic Monkeys</h3>
+                    <p>Genre: Indie Rock (UK)</p>
+                    <button onclick="playMusic('UK')">Play Song</button>
+                </div>
+            </div>
+        </section>
+
+        <button onclick="searchMusic()"
+            style="padding:10px 20px; border:none; border-radius:25px; background:#22c55e; color:#fff; cursor:pointer;">Search</button>
+    </div>
+
+    <div class="map-container">
+        <!-- Simple embedded world map -->
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31518386.885017693!2d68.11137910722708!3d20.5936842525485!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30635a194a728bbb%3A0x26fa2c9b6a9f0a44!2sIndia!5e0!3m2!1sen!2sin!4v1696848256020!5m2!1sen!2sin"
+            allowfullscreen="" loading="lazy"></iframe>
+    </div>
+
+    <div class="music-player">
+        <h3>Now Playing: Indian Indie Vibes 🇮🇳</h3>
+        <audio controls>
+            <source src="Kesariya Tera Ishq Hai Piya - 192Kbps-(Mr-Jat.in).mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <footer>
+        © 2025 Global Music Explorer | Designed by Kailash Suthar
+    </footer>
+
+    <script>
+        function searchMusic() {
+            const artist = document.getElementById("searchInput").value;
+            const genre = document.getElementById("genreSelect").value;
+            if (artist || genre) {
+                alert("Showing results for: " + (artist || "All Artists") + " (" + (genre || "All Genres") + ")");
+            } else {
+                alert("Please enter an artist name or select a genre.");
+            }
+        }
+    </script>
+</body>
+
+</html>
+<script>
+    const musicLibrary = {
+        India: {
+            title: "Indian Indie Vibes 🇮🇳",
+            url: "Kesariya Tera Ishq Hai Piya - 192Kbps-(Mr-Jat.in).mp3"
+        },
+        USA: {
+            title: "American Indie Beats 🇺🇸",
+            url: "believer-demo.wav"
+        },
+        Japan: {
+            title: "Japanese Lo-Fi Sounds 🇯🇵",
+            url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+        },
+        Brazil: {
+            title: "Brazilian Indie Groove 🇧🇷",
+            url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+        },
+        UK: {
+            title: "British Indie Rock 🇬🇧",
+            url: "hello-demo.wav"
+        }
+    };
+
+    function playMusic(country) {
+        const player = document.getElementById("audioPlayer");
+        const source = document.getElementById("audioSource");
+        const nowPlaying = document.getElementById("nowPlaying");
+
+        if (musicLibrary[country]) {
+            source.src = musicLibrary[country].url;
+            nowPlaying.textContent = "Now Playing: " + musicLibrary[country].title;
+            player.load();
+            player.play();
+        }
+    }
+
+    function searchMusic() {
+        const artist = document.getElementById("searchInput").value;
+        const genre = document.getElementById("genreSelect").value;
+        if (artist || genre) {
+            alert("Showing results for: " + (artist || "All Artists") + " (" + (genre || "All Genres") + ")");
+        } else {
+            alert("Please enter an artist name or select a genre.");
+        }
+    }
+</script>
+</body>
+
+</html>
